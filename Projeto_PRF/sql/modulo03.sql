@@ -1,6 +1,10 @@
 -- Danilo Farias
 -- Comandos em SQL - Módulo 03 - Análise de Dados
 
+-- Primeiro faça:
+-- Abra o terminal na pasta do projeto com o duckDB
+-- Execute o comando .\duckdb.exe prf2025.duckdb
+
 -- Exibe a versão do DuckDB
 select version();
 
@@ -36,5 +40,35 @@ select data_inversa, dia_semana, horario from acidentes_prf_2025;
 select data_inversa, dia_semana, horario, uf, br, municipio,
     causa_acidente, tipo_acidente, classificacao_acidente, 
     fase_dia, condicao_metereologica, tipo_pista, tracado_via,
-    uso_solo, mortos from acidentes_prf_2025
+    uso_solo, mortos 
+        from acidentes_prf_2025
         limit 20;
+
+select data_inversa, uf, br, municipio, causa_acidente, mortos
+    from acidentes_prf_2025
+    order by mortos desc, data_inversa
+    limit 20;
+
+
+select data_inversa, uf, br, municipio, causa_acidente, mortos
+    from acidentes_prf_2025
+    where uf = 'PE'
+    order by mortos desc, data_inversa
+    limit 20;
+
+select data_inversa, uf, br, municipio, causa_acidente, mortos
+    from acidentes_prf_2025
+    where uf = 'PE' and municipio = 'RECIFE'
+    order by mortos desc, data_inversa
+    limit 20;
+
+select data_inversa, uf, br, municipio, causa_acidente, mortos
+    from acidentes_prf_2025
+    where uf = 'PE' and municipio in ('RECIFE', 'OLINDA', 'IGARASSU', 'JABOATAO DOS GUARARAPES', 'PAULISTA')
+    order by mortos desc, data_inversa
+    limit 20;
+
+select data_inversa, uf, br, municipio, causa_acidente, mortos
+    from acidentes_prf_2025
+    where mortos >= 1
+    order by mortos desc, data_inversa;
