@@ -31,6 +31,8 @@ select * from acidentes_prf_2025;
 -- Exibe a estrutura da tabela 'acidentes_prf_2025'
 describe acidentes_prf_2025;
 
+select data_inversa, dia_semana, horario from acidentes_prf_2025;
+
 select data_inversa, dia_semana, horario, uf, br, municipio,
     causa_acidente, tipo_acidente, classificacao_acidente, 
     fase_dia, condicao_metereologica, tipo_pista, tracado_via,
