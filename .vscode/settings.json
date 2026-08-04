@@ -1,0 +1,18 @@
+{
+    "workbench.editorAssociations": {
+        "*.copilotmd": "vscode.markdown.preview.editor",
+        "*.parquet": "duckdb.dataFileViewer",
+        "*.csv": "duckdb.dataFileViewer",
+        "*.tsv": "duckdb.dataFileViewer",
+        "*.xlsx": "duckdb.dataFileViewer"
+    },
+    "duckdb.databases": [
+        {
+            "alias": "prf_2025",
+            "type": "file",
+            "path": "c:\\Users\\danso\\OneDrive\\Documentos\\GitHub\\FAP-2026-AnaliseDados\\Projeto_PRF\\prf_2025.duckdb",
+            "attached": true
+        }
+    ],
+    "duckdb.defaultDatabase": "prf_2025"
+}

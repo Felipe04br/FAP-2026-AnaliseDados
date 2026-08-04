@@ -49,7 +49,6 @@ select data_inversa, uf, br, municipio, causa_acidente, mortos
     order by mortos desc, data_inversa
     limit 20;
 
-
 select data_inversa, uf, br, municipio, causa_acidente, mortos
     from acidentes_prf_2025
     where uf = 'PE'
@@ -72,3 +71,93 @@ select data_inversa, uf, br, municipio, causa_acidente, mortos
     from acidentes_prf_2025
     where mortos >= 1
     order by mortos desc, data_inversa;
+
+select municipio from acidentes_prf_2025
+    where uf = 'PE' and mortos >= 1
+    order by municipio;
+
+select distinct municipio from acidentes_prf_2025
+    where uf = 'PE' and mortos >= 1
+    order by municipio;
+
+select distinct fase_dia from acidentes_prf_2025
+    order by fase_dia;
+
+select distinct causa_acidente from acidentes_prf_2025
+    order by causa_acidente;
+
+select distinct upper(tipo_acidente) from acidentes_prf_2025
+    order by tipo_acidente;
+
+select uf as "Estados", count(id) as "Total de Acidentes"
+    from acidentes_prf_2025
+    group by uf
+    order by uf;
+
+select uf as "Estados", count(id) as "Total de Acidentes"
+    from acidentes_prf_2025
+    group by uf
+    order by count(id) desc;
+
+select uf as "Estados", count(id) as "Total de Acidentes Fatais"
+    from acidentes_prf_2025
+    where mortos >= 1
+    group by uf
+    order by count(id) desc;
+
+select uf as "Estados", 
+    count(id) as "Total de Acidentes",
+    sum(mortos) as "Total de Mortos"
+    from acidentes_prf_2025
+    group by uf
+    order by count(id) desc;
+
+select uf as "Estados", 
+    count(id) as "Total de Acidentes Fatais",
+    sum(mortos) as "Total de Mortos"
+    from acidentes_prf_2025
+    where mortos >= 1
+    group by uf
+    order by count(id) desc;
+
+select uf as "Estados", 
+    count(id) as "Total de Acidentes",
+    count(mortos) filter (where mortos >= 1) as "Total de Acidentes Fatais",
+    sum(mortos) as "Total de Mortos"
+    from acidentes_prf_2025
+    group by uf
+    order by count(id) desc;
+
+select uf as "Estados", 
+    count(id) as "Total de Acidentes",
+    count(mortos) filter (where mortos >= 1) as "Total de Acidentes Fatais",
+    sum(mortos) as "Total de Mortos",
+    round(((count(mortos) filter (where mortos >= 1)) / count(id)) * 100.0, 2) 
+        as "Taxa de Acidentes Fatais"
+    from acidentes_prf_2025
+    group by uf
+    order by count(id) desc;
+
+select uf as "Estados", 
+    count(id) as "Total de Acidentes",
+    count(mortos) filter (where mortos >= 1) as "Total de Acidentes Fatais",
+    sum(mortos) as "Total de Mortos",
+    replace(printf('%.2f%%', 
+        ((count(mortos) filter (where mortos >= 1)) / count(id)) 
+            * 100.0), '.', ',')
+        as "Taxa de Acidentes Fatais"
+    from acidentes_prf_2025
+    group by uf
+    order by count(id) desc;
+
+select uf as "Estados", 
+    count(id) as "Total de Acidentes",
+    count(mortos) filter (where mortos >= 1) as "Total de Acidentes Fatais",
+    sum(mortos) as "Total de Mortos",
+    replace(printf('%.2f%%', 
+        ((count(mortos) filter (where mortos >= 1)) / count(id)) 
+            * 100.0), '.', ',')
+        as "Taxa de Acidentes Fatais"
+    from acidentes_prf_2025
+    group by uf
+    order by (count(mortos) filter (where mortos >= 1)) / count(id) desc;
