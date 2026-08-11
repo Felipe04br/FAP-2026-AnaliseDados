@@ -598,6 +598,26 @@ select extract(year from cast(data_inversa as date)) as "Ano",
     from acidentes_prf_2025, taxa_fatalidade_global
     group by "Ano", "Mês", taxa_fatalidade
     order by "Lift" desc;
+	
+create or replace view vw_acidentes_por_ano_mes as
+with taxa_fatalidade_global as (
+    select sum(acidente_fatal) / count(id) as taxa_fatalidade
+    from acidentes_prf_2025
+)
+select extract(year from cast(data_inversa as date)) as "Ano", 
+    extract(month from cast(data_inversa as date)) as "Mês",
+    count(id) as "Total de Acidentes",
+    count(mortos) filter (where mortos >= 1) as "Total de Acidentes Fatais",
+    sum(mortos) as "Total de Mortos",
+    replace(printf('%.2f%%', 
+        ((count(mortos) filter (where mortos >= 1)) / count(id)) 
+            * 100.0), '.', ',')
+        as "Taxa de Acidentes Fatais",
+    round(((count(mortos) filter (where mortos >= 1)) / count(id)) /
+    taxa_fatalidade, 2) as "Lift"
+    from acidentes_prf_2025, taxa_fatalidade_global
+    group by "Ano", "Mês", taxa_fatalidade
+    order by "Lift" desc;
 
 copy vw_acidentes_por_tipo_lift 
     to 'C:\Users\danso\OneDrive\Documentos\GitHub\FAP-2026-AnaliseDados\Projeto_PRF\resultados/bivariada_tipo_acidente.csv' 
