@@ -1,6 +1,11 @@
 -- Danilo Farias
 -- Comandos em SQL - Módulo 03 - Análise de Dados
 
+-- Consulta: taxa de fatalidade por tipo de acidente
+-- Fonte: Dados Abertos PRF 2025 acidentes agrupados por ocorrência
+-- Critério: categorias com pelo menos 100 ocorrências
+-- Objetivo: gerar insumo para análise bivariada do Módulo 5
+
 -- Primeiro faça:
 -- Abra o terminal na pasta do projeto com o duckDB
 -- Execute o comando .\duckdb.exe prf2025.duckdb
@@ -12,17 +17,16 @@ select version();
 -- O arquivo CSV está localizado no diretório 'dados_brutos' e utiliza o delimitador ';'
 -- Lembra de inserir a o parâmetro 'encoding' para lidar com caracteres especiais, como acentos e cedilha
 select * from read_csv_auto(
-    'dados_brutos/acidentes2025.csv',
+    'C:\Users\danso\OneDrive\Documentos\GitHub\FAP-2026-AnaliseDados\Projeto_PRF\dados_brutos\acidentes2025.csv',
     delim = ';',
     header = true,
     encoding = 'latin-1',
     sample_size = -1
-)
-LIMIT 10;
+);
 
 create or replace table acidentes_prf_2025 as
 select * from read_csv_auto(
-    'dados_brutos/acidentes2025.csv',
+    'C:\Users\danso\OneDrive\Documentos\GitHub\FAP-2026-AnaliseDados\Projeto_PRF\dados_brutos\acidentes2025.csv',
     delim = ';',
     header = true,
     encoding = 'latin-1',
@@ -634,3 +638,4 @@ copy vw_acidentes_por_condicao_metereologica_lift
 copy vw_acidentes_por_uf_lift 
     to 'C:\Users\danso\OneDrive\Documentos\GitHub\FAP-2026-AnaliseDados\Projeto_PRF\resultados/bivariada_uf.csv' 
         (HEADER, DELIMITER ';');
+
