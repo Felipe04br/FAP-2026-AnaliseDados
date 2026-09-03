@@ -638,4 +638,35 @@ copy vw_acidentes_por_condicao_metereologica_lift
 copy vw_acidentes_por_uf_lift 
     to 'C:\Users\danso\OneDrive\Documentos\GitHub\FAP-2026-AnaliseDados\Projeto_PRF\resultados/bivariada_uf.csv' 
         (HEADER, DELIMITER ';');
+COPY (
+  SELECT
+    data_inversa, dia_semana,
+    horario, uf, br, municipio,
+    causa_acidente, tipo_acidente,
+    classificacao_acidente,
+    fase_dia,
+    condicao_metereologica,
+    tipo_pista, tracado_via,
+    uso_solo, mortos, acidente_fatal
+  FROM acidentes_prf_2025
+)
+TO 'C:\Users\danso\OneDrive\Documentos\GitHub\FAP-2026-AnaliseDados\Projeto_PRF\resultados/base_analitica_sql.csv'
+(HEADER, DELIMITER ';');
+
+COPY (
+  SELECT
+    uf, br, municipio,
+    EXTRACT(MONTH FROM
+      CAST(data_inversa AS DATE))
+      AS mes,
+    dia_semana, fase_dia,
+    causa_acidente, tipo_acidente,
+    condicao_metereologica,
+    tipo_pista, tracado_via,
+    uso_solo, acidente_fatal
+  FROM acidentes_prf_2025
+)
+TO 'C:\Users\danso\OneDrive\Documentos\GitHub\FAP-2026-AnaliseDados\Projeto_PRF\resultados/base_modelavel_preliminar_sql.csv'
+(HEADER, DELIMITER ';');
+
 
