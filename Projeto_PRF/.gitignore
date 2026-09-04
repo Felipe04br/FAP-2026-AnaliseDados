@@ -1,0 +1,3 @@
+*.wal
+*duckdb.wal
+*.tmp/
