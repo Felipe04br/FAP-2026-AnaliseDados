@@ -1,3 +1,14 @@
+# Configurações de ambiente e IDE
 .ssh/
 .vscode/
 .venv/
+.ide/
+
+# Arquivos temporários e de log do DuckDB
+Projeto_PRF/*.wal
+Projeto_PRF/duckdb.wal
+Projeto_PRF/*.tmp
+
+# Bases geradas diretamente pelo código
+Projeto_PRF/dados_tratados/base_analitica_prf_2025.csv
+Projeto_PRF/dados_tratados/base_modelavel_prf_2025.csv
