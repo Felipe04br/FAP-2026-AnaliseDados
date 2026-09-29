@@ -6,11 +6,11 @@
 
 -- Criação da tabela consolidada integrando as três bases anuais da PRF via UNION ALL
 CREATE TABLE acidentes_prf_historico AS
-SELECT * FROM read_csv_auto('datatran2023.csv', delim=';', header=true, encoding = 'latin-1', sample_size=-1)
+SELECT * FROM read_csv_auto('Projeto_PRF/dados_brutos/datatran2023.csv', delim=';', header=true, encoding = 'latin-1', sample_size=-1)
 UNION ALL
-SELECT * FROM read_csv_auto('datatran2024.csv', delim=';', header=true, encoding = 'latin-1', sample_size=-1)
+SELECT * FROM read_csv_auto('Projeto_PRF/dados_brutos/datatran2024.csv', delim=';', header=true, encoding = 'latin-1', sample_size=-1)
 UNION ALL
-SELECT * FROM read_csv_auto('datatran2025.csv', delim=';', header=true, encoding = 'latin-1', sample_size=-1);
+SELECT * FROM read_csv_auto('Projeto_PRF/dados_brutos/datatran2025.csv', delim=';', header=true, encoding = 'latin-1', sample_size=-1);
 
 -- PARTE 2: LIMPEZA E SELEÇÃO DE COLUNAS
 
